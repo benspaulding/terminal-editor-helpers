@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# Abstract:
+#     Script for using BBEdit as EDITOR.
+#
+# Author:
+#     Ben Spaulding <http://benspaulding.us/>
+#
+# Details:
+#     This script allows BBEdit to be the EDITOR in a more robust way than the
+#     bbedit command line tool allows. This is because the bbedit command exits
+#     immediately after the file arguments are opened unless the the --wait
+#     option is used. However, some tools, such as crontab, fail with
+#     multiple-term EDITORs. This script can be set as the EDITOR, resolving
+#     that issue. bbedit's --resume option is also used, which returns focus to
+#     the referring app (e.g., Terminal.app) after editing is complete.
+#
+# Usage:
+#     Save this script to somewhere like your ~/bin directory. You can then put
+#     something such as the following in your ~/.bashrc file::
+#
+#         # Set bbeditor as EDITOR.
+#         if [ -f "$HOME/bin/bbeditor" ]; then
+#             export EDITOR="$HOME/bin/bbeditor"
+#         else
+#             echo "WARNING: Can't find bbeditor."
+#         fi
+#
+
+if [ -f "`which bbedit`" ]; then
+    bbedit --wait --resume "$@"
+else
+    echo "ERROR: Can't find bbedit. Did you install the command line tools?"
+fi
