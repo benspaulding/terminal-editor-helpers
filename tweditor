@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+# Abstract:
+#     Script for using TextWrangler as the default EDITOR.
+#
+# Author:
+#     Ben Spaulding <http://benspaulding.us/>
+#
+# Details:
+#     This script allows TextWrangler to be the ``EDITOR`` in a more robust way
+#     than the ``edit`` command line tool allows. This is because the ``edit``
+#     command exits immediately after the file arguments are opened, unless the
+#     ``--wait`` switch is used. However, some tools, such as crontab, fail with
+#     a multiple-term ``EDITOR``. This script can be set as the ``EDITOR``,
+#     resolving that issue. The ``--resume`` switch is also used, which returns
+#     focus to the referring app (e.g., Terminal.app) after editing is complete.
+#
+#     Tip: If you're using TextWrangler 3.5.3 or later, you may get the
+#     following error when editing a crontab or other similar files::
+#
+#         crontab: temp file must be edited in place
+#
+#     Evidently a change to the way files are saved found it's way in from
+#     TextWrangler's big brother, BBEdit. (Interestingly, however, this is not
+#     an issue with BBEdit.) You can fix this issue by quitting TextWrangler and
+#     running the follow command on the command line::
+#
+#         defaults write com.barebones.textwrangler Filing:SafeSavesDisabled -bool YES
+#
+#     For more information, see the following:
+#
+#     * http://hints.macworld.com/comment.php?mode=view&cid=122750
+#     * http://www.barebones.com/support/bbedit/arch_bbedit951.html
+#
+# Usage:
+#     Save this script to somewhere like your ~/bin directory. You can then put
+#     something such as the following in your ~/.bashrc file::
+#
+#         # Set tweditor as EDITOR.
+#         if [ -f "$HOME/bin/tweditor" ]; then
+#             export EDITOR="$HOME/bin/tweditor"
+#         else
+#             echo "WARNING: Can't find tweditor."
+#         fi
+#
+
+if [ -f "`which edit`" ]; then
+    edit --wait --resume "$@"
+else
+    echo "ERROR: Can't find edit. Did you install the command line tools?"
+fi
