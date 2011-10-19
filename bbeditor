@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
 # Abstract:
-#     Script for using BBEdit as EDITOR.
+#     Script for using BBEdit as the default EDITOR.
 #
 # Author:
 #     Ben Spaulding <http://benspaulding.us/>
 #
 # Details:
-#     This script allows BBEdit to be the EDITOR in a more robust way than the
-#     bbedit command line tool allows. This is because the bbedit command exits
-#     immediately after the file arguments are opened unless the the --wait
-#     option is used. However, some tools, such as crontab, fail with
-#     multiple-term EDITORs. This script can be set as the EDITOR, resolving
-#     that issue. bbedit's --resume option is also used, which returns focus to
-#     the referring app (e.g., Terminal.app) after editing is complete.
+#     This script allows BBEdit to be the ``EDITOR`` in a more robust way than
+#     the ``bbedit`` command line tool allows. This is because the ``bbedit``
+#     command exits immediately after the file arguments are opened, unless the
+#     ``--wait`` switch is used. However, some tools, such as crontab, fail with
+#     a multiple-term ``EDITOR``. This script can be set as the ``EDITOR``,
+#     resolving that issue. The ``--resume`` switch is also used, which returns
+#     focus to the referring app (e.g., Terminal.app) after editing is complete.
 #
 # Usage:
 #     Save this script to somewhere like your ~/bin directory. You can then put
